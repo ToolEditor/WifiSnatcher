@@ -1,5 +1,6 @@
 ' Wifi snatcher tool
 Option Explicit
+
 ' Declaration 
 Dim objShell,objFso,objExec,objFile
 Dim wifiName, wifiPassword,command,strLine
